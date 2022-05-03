@@ -3,7 +3,7 @@ import pygame
 import random
 from src import hero
 from src import enemy
-
+from src import totem_of_undying
 
 class Controller:
     def __init__(self, width=640, height=480):
@@ -24,7 +24,8 @@ class Controller:
             y = random.randrange(100, 400)
             self.enemies.add(enemy.Enemy("Boogie", x, y, 'assets/enemy.png'))
         self.hero = hero.Hero("Conan", 50, 80, "assets/hero.png")
-        self.all_sprites = pygame.sprite.Group((self.hero,) + tuple(self.enemies))
+        self.totem = totem_of_undying.Totem(self.width*2, self.width*2, "assets/totem_of_undying.png")
+        self.all_sprites = pygame.sprite.Group((self.hero,self.totem) + tuple(self.enemies))
         self.state = "GAME"
 
     def mainLoop(self):
@@ -64,6 +65,10 @@ class Controller:
             self.enemies.update()
             self.screen.blit(self.background, (0, 0))
             if(self.hero.health == 0):
+              if self.totem.revive():
+                self.hero.health=3
+              else:
+                print("game is over")
                 self.state = "GAMEOVER"
             self.all_sprites.draw(self.screen)
 
