@@ -21,6 +21,11 @@ class Enemy(pygame.sprite.Sprite):
         self.speed = 2
 
     def update(self):
+      """
+      Makes the enemy object move randomly by randomly altering the x & y coordinates of the enemy object in the step of 1.
+      args: none
+      return: none
+      """
       random_x= random.randrange(-1,1)
       random_y= random.randrange(-1,1)
       self.rect.x+=random_x

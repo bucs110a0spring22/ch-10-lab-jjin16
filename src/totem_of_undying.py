@@ -8,8 +8,15 @@ class Totem(pygame.sprite.Sprite):
     self.rect.y = y
     self.totem_usage= 0
   def revive(self):
+    """
+    when revive function is called, it checks if it is the first time being called. Then totem object appears on the screen near the hero if the function returns true.
+    args: none
+    return: True/False
+    """
     if self.totem_usage == 0:
       self.totem_usage+=1
+      self.rect.x= 50
+      self.rect.y= -50
       print("Totem of undying revived you!")
       print("Totem of undying shattered!")
       return True
